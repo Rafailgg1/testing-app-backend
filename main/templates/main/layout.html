@@ -26,13 +26,13 @@
                         <i class="fa-solid fa-house-chimney-user"></i>Главная
                     </a>
                     <div class="dropdown">
-                        <a href="#" class="nav__link">
+                        <a href="{% url 'test_home' %}" class="nav__link">
                             <i class="fa-solid fa-bars-staggered"></i>Темы
                         </a>
                         <div class="dropdown-content">
-                            <a href="#">Тема 1 "В каком 10-и летии вам суждено быть"</a>
-                            <a href="#">Тема 2 "Ваш взгляд на грядущие перемены в мире"</a>
-                            <a href="#">Тема 3  "Кем бы вы хотели себя видеть"</a>
+                            <a href="{% url 'theme1' %}">Тема 1 "В каком 10-и летии вам суждено быть"</a>
+                            <a href="{% url 'theme2' %}">Тема 2 "Ваш взгляд на грядущие перемены в мире"</a>
+                            <a href="{% url 'theme3' %}">Тема 3  "Кем бы вы хотели себя видеть"</a>
                         </div>
                     </div>
 
@@ -41,9 +41,9 @@
                             <i class="fa-solid fa-book-open-reader"></i>Тесты
                         </a>
                         <div class="dropdown-content">
-                            <a href="#">Тест 1-ой категории "Люди"</a>
-                            <a href="#">Тест 2-ой категории "Время"</a>
-                            <a href="#">Тест 3-ей категории "Мир"</a>
+                            <a href="{% url 'test1' %}">Тест 1-ой категории "Люди"</a>
+                            <a href="{% url 'test2' %}">Тест 2-ой категории "Время"</a>
+                            <a href="{% url 'test3' %}">Тест 3-ей категории "Мир"</a>
                             <a href="#">Тест 4-ой категории "Всё что материально"</a>
                             <a href="#">Тест 5-ой категории "Всё что воображаймо"</a>
                         </div>
@@ -59,6 +59,9 @@
                 </nav>   
             </div>
         </div>
+        <div id="current-url" style="position: fixed; bottom: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 10px; border-radius: 5px;">
+            Текущий URL: <span id="url-display"></span>
+        </div>
     </header>
 
     <div class="intro">
@@ -70,7 +73,7 @@
             <p>Простой Тест</p>
         </div>
     </div>
-
+    <script src="{% static 'main/static/index.js' %}"></script>
 </body>
 </html>
 

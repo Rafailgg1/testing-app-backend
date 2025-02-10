@@ -23,8 +23,8 @@ class TestDeleteView(DeleteView):
     success_url = '/test'
     template_name = 'news/test-delete.html'
     
-def create(request):
-    return render(request, 'test/create.html')
+# def create(request):
+#     return render(request, 'news/create.html')
 
 def create(request):
     error = ''
@@ -43,4 +43,4 @@ def create(request):
         'error': error
     }
     
-    return render(request, 'test/create.html', data)
+    return render(request, 'news/create.html', data)

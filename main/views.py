@@ -20,6 +20,29 @@ def about(request):
 def log_in(request):
     return render(request, 'main/log_in.html')
 
+def theme1(request):
+    return render(request, 'main/theme1.html')
+
+def theme2(request):
+    return render(request, 'main/theme2.html')
+
+def theme3(request):
+    return render(request, 'main/theme3.html')
+
+def test1(request):
+    return render(request, 'main/test1.html')
+
+def test2(request):
+    return render(request, 'main/test2.html')
+
+def test3(request):
+    return render(request, 'main/test3.html')
+
+def section(request):
+    return render(request, 'main/section.html')
+
+def info(request):
+    return render(request, 'main/info.html')
 # class TagViewSet(ModelViewSet):
 #     serializer_class = TagSerializer
 #     queryset = Tag.objects.all()
