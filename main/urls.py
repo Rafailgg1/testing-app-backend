@@ -9,6 +9,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 # PostViewSet, TagViewSet
 # from main.urls import urls as main_urls, TodoView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TestViewSet
+from .views import views_test
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
+    
+
+router = DefaultRouter()
+router.register(r'tests', TestViewSet)
+
 
 
 urlpatterns = [
@@ -16,7 +32,11 @@ urlpatterns = [
     path('about123', views.about, name='about'),
     path('log_in', views.log_in, name='log_in'),
     path('section', views.section, name='section'),
+    path('test/<int:test_id>/', views.start_test, name='start_test'),
+    path('test/<int:test_id>/question/<int:question_number>/', views.question, name='question'),
+    path('results/', views.results, name='results'),
     path('info', views.info, name='info'),
+    path('test', include(router.urls)),
     path('theme1/', views.theme1, name='theme1'),
     path('theme2/', views.theme2, name='theme2'),
     path('theme3/', views.theme3, name='theme3'),
@@ -25,6 +45,8 @@ urlpatterns = [
     path('test3/', views.test3, name='test3'),
 ] +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # router = DefaultRouter()
 
 # router.register(r'tags', TagViewSet, basename='tags')

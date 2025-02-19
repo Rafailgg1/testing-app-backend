@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question {{ question_number }}/{{ total_questions }}</title>
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Question {{ question_number }} of {{ total_questions }}</h2>
+        <div class="question">
+            <p>{{ question.text }}</p>
+            <form method="post" action="{% url 'question' test_id=test_id question_number=question_number %}">
+                {% csrf_token %}
+                {% for answer in question.answers.all %}
+                    <label class="option">
+                        <input type="radio" name="answer" value="{{ answer.id }}">
+                        {{ answer.text }}
+                    </label>
+                {% endfor %}
+                <button type="submit" class="next-button">Next Question</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

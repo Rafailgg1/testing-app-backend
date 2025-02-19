@@ -13,6 +13,7 @@ from news import views
 
 
 urlpatterns = [
+    
     path("admin/", admin.site.urls),
     path('', include('main.urls')),
     path('', views.test_home, name='test_home'),
