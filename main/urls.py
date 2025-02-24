@@ -1,14 +1,9 @@
 from django.contrib import admin
 from django.http import HttpResponse, HttpRequest
 from django.urls import path
-# from django.views.decorators.csrf import csrf_exempt
-# from rest_framework.routers import DefaultRouter
-# from rest_framework_simplejwt.views  import TokenObtainPairView, TokenRefreshView, TagViewSet
 from . import views  
 from django.conf import settings
 from django.conf.urls.static import static
-# PostViewSet, TagViewSet
-# from main.urls import urls as main_urls, TodoView
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import TestViewSet
@@ -17,7 +12,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth import views as auth_views
 
 
     
@@ -28,33 +23,30 @@ router.register(r'tests', TestViewSet)
 
 
 urlpatterns = [
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),    
+        path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),   
+    path('chat/', views.chat, name='chat'),
+    path('themes/', views.themes, name='themes'), 
+    path('section/', views.section, name='section'),
+    path('results/', views.results, name='results'),     
+    path('results/<str:result_id>/', views.results, name='results'),
+    path('test/people/', views.test_people, name='test_people'),
+    path('test/time/', views.test_time, name='test_time'),
+    path('test/world/', views.test_world, name='test_world'),
+    path('test/material/', views.test_material, name='test_material'),
+    path('test/imagination/', views.test_imagination, name='test_imagination'),
     path('', views.index, name='home'),
     path('about123', views.about, name='about'),
     path('log_in', views.log_in, name='log_in'),
-    path('section', views.section, name='section'),
+    path('section/', views.section, name='tests'),
     path('test/<int:test_id>/', views.start_test, name='start_test'),
-    path('test/<int:test_id>/question/<int:question_number>/', views.question, name='question'),
-    path('results/', views.results, name='results'),
+    path('test/<int:test_id>/question/<int:question_id>/', views.question, name='question'),
     path('info', views.info, name='info'),
     path('test', include(router.urls)),
     path('theme1/', views.theme1, name='theme1'),
     path('theme2/', views.theme2, name='theme2'),
     path('theme3/', views.theme3, name='theme3'),
-    path('test1/', views.test1, name='test1'),
-    path('test2/', views.test2, name='test2'),
-    path('test3/', views.test3, name='test3'),
 ] +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# router = DefaultRouter()
-
-# router.register(r'tags', TagViewSet, basename='tags')
-# router.register(r'posts', views.PostViewSet, basename='posts')
-# router.register(r'topic', views.TopicViewSet, basename='topic')
-
-# api_urlpatterns = router.urls + [
-#     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-#     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
-# ]

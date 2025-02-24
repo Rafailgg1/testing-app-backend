@@ -58,7 +58,7 @@ ROOT_URLCONF = 'Test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,6 +84,16 @@ DATABASES = {
     }
 }
 
+
+
+# Куда перенаправлять после успешного входа
+LOGIN_REDIRECT_URL = '/chat/'
+
+# URL для входа (стандартный путь Django)
+LOGIN_URL = '/accounts/login/'
+
+# Куда перенаправлять после выхода
+LOGOUT_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

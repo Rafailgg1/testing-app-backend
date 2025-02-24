@@ -1,82 +1,3 @@
-{% comment %} 
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    {% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тесты и Описания</title>
-    <link rel="stylesheet" href="static/stylesss.css">
-    <!-- Подключение GSAP через CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
-</head>
-<body>
-    <!-- Видео-секция -->
-    <section class="video-section">
-        <video class="video-bg" autoplay muted loop>
-            <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-        <div class="video-overlay">
-            <h1>Тесты и Описания</h1>
-            <p>Исследуйте возможности нашего продукта.</p>
-            <button class="cta-button">Узнать больше</button>
-        </div>
-    </section>
-
-    <!-- Липкие секции -->
-    <section class="sticky-section">
-        <div class="sticky-content">
-            <div class="text-content">
-                <h2>Тест 1: Прочность</h2>
-                <p>Наш продукт прошел испытания на прочность в экстремальных условиях.</p>
-                <button class="card-button">Подробнее</button>
-            </div>
-            <div class="image-content">
-                <img src="{% static 'main/img/people.jpeg'  %}" alt="Тест на прочность">
-            </div>
-        </div>
-    </section>
-
-    <section class="sticky-section">
-        <div class="sticky-content">
-            <div class="text-content">
-                <h2>Тест 2: Скорость</h2>
-                <p>Мы провели тесты на скорость, чтобы убедиться в эффективности.</p>
-                <button class="card-button">Подробнее</button>
-            </div>
-            <div class="image-content">
-                <img src="{% static 'main/img/time.jpg' %}" alt="Тест на скорость">
-            </div>
-        </div>
-    </section>
-
-    <section class="sticky-section">
-        <div class="sticky-content">
-            <div class="text-content">
-                <h2>Тест 3: Безопасность</h2>
-                <p>Безопасность — наш приоритет. Узнайте, как мы тестируем.</p>
-                <button class="card-button">Подробнее</button>
-            </div>
-            <div class="image-content">
-                <img src="{% static 'main/img/world.jpg' %}" alt="Тест на безопасность">
-            </div>
-        </div>
-    </section>
-
-    <!-- Футер -->
-    <footer>
-        <p>&copy; 2023 Ваша компания. Все права защищены.</p>
-    </footer>
-
-    <script src="static/scripts.js"></script>
-</body>
-</html> {% endcomment %}
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -86,15 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Тесты и Описания</title>
         <link rel="stylesheet" href="static/stylesss.css">
-        <!-- Подключение GSAP через CDN -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
     </head>
     <body>
-        <!-- Кнопка возврата на домашнюю страницу -->
+        {% block content %} 
         <a href="/" class="home-button">На главную</a>
-    
-        <!-- Видео-секция -->
         <section class="video-section">
             <video class="video-bg" autoplay muted loop>
                 <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
@@ -107,7 +26,6 @@
             </div>
         </section>
     
-        <!-- Липкие секции -->
         <section class="sticky-section section-1">
             <div class="sticky-content">
                 <div class="text-content">
@@ -147,11 +65,11 @@
             </div>
         </section>
     
-        <!-- Футер -->
         <footer>
             <p>&copy; 2025 Test. Все права защищены.</p>
         </footer>
     
         <script src="static/scripts.js"></script>
+        {% endblock %}
     </body>
     </html>

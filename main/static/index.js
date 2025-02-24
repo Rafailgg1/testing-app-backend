@@ -4,13 +4,12 @@ async function deleteTodo(id) {
           headers: {
               'Content-Type': 'application/json'
       },
-      // body: JSON.stringify({
-      //     'id': id
+
     });
     
     const data = await response.json();
   
-  //   location.reload();
+
   if (response.ok) {
     element.remove();
   }
@@ -19,9 +18,7 @@ async function deleteTodo(id) {
   
   
   
-      // const
   document.querySelectorAll('.todo-list')
-  // .addEventListener('submit', function (event) {
   function deleteFormListener(event) {
       
   
@@ -41,44 +38,37 @@ async function deleteTodo(id) {
   todoList.addEventListener('submit', deleteFormListener);
   
   
-  //   }).then(function (response) {
-  //     return response.json();
-  //   }).then(function (data) {
-  //     location.reload();
-  //   })
-  // }
-// Обновляем отображение текущего URL
+
 function updateUrlDisplay() {
     const urlDisplay = document.getElementById('url-display');
     urlDisplay.textContent = window.location.pathname;
 }
 
-// Вызываем при загрузке страницы
+
 updateUrlDisplay();
 
-// Вызываем при изменении URL
+
 window.addEventListener('popstate', updateUrlDisplay);
  
 document.addEventListener('DOMContentLoaded', function () {
     const dropdowns = document.querySelectorAll('.dropdown');
 
-    // Обработчик для раскрытия/закрытия выпадающего списка
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', function (e) {
-            e.stopPropagation(); // Останавливаем всплытие события
+            e.stopPropagation(); 
             this.querySelector('.dropdown-content').classList.toggle('show');
         });
     });
 
-    // Закрываем выпадающие списки при клике вне их области
+   
     window.addEventListener('click', function () {
         dropdowns.forEach(dropdown => {
             dropdown.querySelector('.dropdown-content').classList.remove('show');
         });
     });
 
-    // Добавляем класс 'active' к текущему пункту меню
-    const currentUrl = window.location.pathname; // Получаем текущий URL
+   
+    const currentUrl = window.location.pathname; 
     const navLinks = document.querySelectorAll('.nav__link, .dropdown-content a');
 
     navLinks.forEach(link => {
@@ -87,20 +77,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Обработчик для изменения URL без перезагрузки страницы
+
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault(); // Отменяем стандартное поведение ссылки
+            e.preventDefault(); 
             const url = this.getAttribute('href');
 
-            // Изменяем URL без перезагрузки страницы
+
             history.pushState(null, null, url);
 
-            // Добавляем класс 'active' к текущему пункту меню
+
             navLinks.forEach(link => link.classList.remove('active'));
             this.classList.add('active');
 
-            // Здесь можно добавить логику для загрузки контента (например, через AJAX)
+
             console.log(`Переход на ${url}`);
         });
     });

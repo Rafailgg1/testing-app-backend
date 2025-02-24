@@ -1,23 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest, Http404, JsonResponse
-# from django.views.generic import  DetailView, UpdateView, DeleteView, View
-# from django.views.decorators.http import require_http_methods
-# from .serialiser import TagSerializer, PostSerializer
-# from .models import Tag, Topic, Post
-# from rest_framework.views import APIView, Response
-# from rest_framework.viewsets import ModelViewSet
-# from rest_framework.permissions import (DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly) 
-# import rest_framework
-# from .models import Todo
 from django.db import models
 from rest_framework import viewsets
-from .models import  Test, Question, Answer
-from rest_framework import serializers
 from django.shortcuts import render, redirect
-from .models import Test
+from main.models import  Test, Question, Answer
+from rest_framework import serializers
 from .serializers import TestSerializer
 from django.urls import reverse
-
+import logging
+import time  
+from .models import ChatMessage
+from .forms import ChatMessageForm
+from django.contrib.auth.decorators import login_required
 
 
 def views_test(request, test_id):
@@ -28,45 +22,175 @@ class TestViewSet(viewsets.ModelViewSet):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
     
-def start_test(request, test_id):
-    request.session['test_id'] = test_id
-    request.session['question_index'] = 1  # Начинаем с первого вопроса
-    request.session['score'] = 0
-    return redirect('question', test_id=test_id, question_number=1)  # Передаем оба аргумента
+logger = logging.getLogger(__name__)
 
-def question(request, test_id, question_number):
+def start_test(request, test_id):
     test = get_object_or_404(Test, id=test_id)
-    questions = test.questions.all().order_by('id')
     
-    if question_number > len(questions):
-        return redirect('results')
-    
-    current_question = questions[question_number - 1]
-    
+
+    request.session.flush()
+    request.session['test_id'] = test_id
+    request.session['score'] = 0
+    request.session['answers'] = []  
+    logger.info(f"Session data after start_test: {request.session.items()}")
+
+
+    first_question = test.questions.first()
+    if not first_question:
+        return render(request, 'main/error.html', {'message': 'Тест пуст!'})
+
+
+    return redirect('question', test_id=test_id, question_id=first_question.id)
+
+def question(request, test_id, question_id):
+    test = get_object_or_404(Test, id=test_id)
+    current_question = get_object_or_404(Question, id=question_id)
+
     if request.method == 'POST':
         selected_answer_id = request.POST.get('answer')
         if selected_answer_id:
             answer = get_object_or_404(Answer, id=selected_answer_id)
             if answer.is_correct:
-                request.session['score'] += 1
-        request.session['question_index'] += 1
-        return redirect('question', test_id=test_id, question_number=question_number + 1)
-    
+                request.session['score'] = request.session.get('score', 0) + 1
+
+
+            if 'answers' not in request.session:
+                request.session['answers'] = []
+            request.session['answers'].append(selected_answer_id)
+            request.session.modified = True
+
+
+            if answer.result_message:
+                request.session['result_message'] = answer.result_message
+                request.session['result_image'] = answer.result_image.url if answer.result_image else None
+                result_id = f"{test_id}_{int(time.time())}"
+                return redirect('results', result_id=result_id)
+
+
+            if answer.redirect_to:
+                next_question = answer.redirect_to
+                return redirect('question', test_id=test_id, question_id=next_question.id)
+
+
+        result_id = f"{test_id}_{int(time.time())}"
+        return redirect('results', result_id=result_id)
+
     return render(request, 'main/question.html', {
         'question': current_question,
-        'question_number': question_number,
-        'total_questions': len(questions),
-        'test_id': test_id,  # Передаем test_id в шаблон
+        'test_id': test_id,
     })
 
-def results(request):
+    
+def results(request, result_id):
+    test_id = int(result_id.split('_')[0])
+    test = get_object_or_404(Test, id=test_id)
     score = request.session.get('score', 0)
-    total = Test.objects.get(id=request.session['test_id']).questions.count()
-    return render(request, 'main/results.html', {'score': score, 'total': total})
+    total = test.questions.count()
+    
+
+    result_message = "Результат не определён."
+
+
+    if test_id == 4:
+        if 0 <= score <= 5:
+            result_message = "Понятие времени вам даётся не легко, возможно оно от вас убежало."
+        elif 6 <= score <= 9:
+            result_message = "Почти идеально, Вы знаете о времени многое, но ваши часы отстают на секунды, это не критично."
+        elif score == 10:
+            result_message = "Ого, да вы эксперт в понятии времени. Неужели вы само время?"
+
+
+    elif test_id == 5:
+        if 0 <= score <= 5:
+            result_message = "Вы только начинаете свой путь в этом мире. Продолжайте учиться, и познайте его!"
+        elif 6 <= score <= 9:
+            result_message = "Вы знаете о мире многое, но ещё есть куда расти!"
+        elif score == 10:
+            result_message = "Вы знаете о будущем больше многих, так держать."
+
+    elif test_id == 6:
+        if 0 <= score <= 2:
+            result_message = "Материальный мир далёк, попробуйте пройти тест на воображение"
+        elif 3 <= score <= 4:
+            result_message = "Вы близки к разгадке материального мира!"
+        elif score == 5:
+            result_message = "Вы знайте о материальном мире всё!"
+            
+            
+    elif test_id == 7:
+        if 0 <= score <= 5:
+            result_message = "У вас есть воображение, но вы стесняйтесь о нём рассказать."
+        elif 6 <= score <= 9:
+            result_message = "У вас богатое воображение, и вы его хорошо демонстрируете!"
+        elif score == 10:
+            result_message = "Воображение ваше второе имя, и я уверен вы можете соотварить всё!"
+            
+
+    else:
+        result_message = request.session.get('result_message', result_message)
+
+    result_image = None
+    last_answer_id = request.session.get('answers', [])[-1] if request.session.get('answers') else None
+    if last_answer_id:
+        try:
+            last_answer = Answer.objects.get(id=last_answer_id)
+            result_image = last_answer.result_image.url if last_answer.result_image else None
+        except Answer.DoesNotExist:
+            pass
+
+    request.session.flush()
+
+    return render(request, 'main/results.html', {
+        'score': score,
+        'total': total,
+        'result_message': result_message,
+        'result_image': result_image, 
+        'test_title': test.title,
+    })
+    
+@login_required
+def chat(request):
+    if request.method == 'POST':
+        form = ChatMessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.user = request.user
+            message.save()
+            return redirect('chat')
+    else:
+        form = ChatMessageForm()
+
+    messages = ChatMessage.objects.all().order_by('timestamp')
+    return render(request, 'main/chat.html', {'form': form, 'messages': messages})
+
 a = []
+def start_test(request, test_id):
+    test = get_object_or_404(Test, id=test_id)
+    first_question = test.questions.first()
+    if not first_question:
+        return render(request, 'main/no_questions.html')  
+    return redirect('question', test_id=test.id, question_id=first_question.id)
+
+def test_people(request):
+    return start_test(request, test_id=3) 
+
+def test_time(request):
+    return start_test(request, test_id=4) 
+
+def test_world(request):
+    return start_test(request, test_id=5)  
+
+def test_material(request):
+    return start_test(request, test_id=6)  
+
+def test_imagination(request):
+    return start_test(request, test_id=7)  
 
 def index(request):
     return render(request, 'main/index.html')
+
+def themes(request):
+    return render(request, 'main/themes.html')
 
 def about(request):
     return render(request, 'main/about.html')
@@ -97,22 +221,3 @@ def section(request):
 
 def info(request):
     return render(request, 'main/info.html')
-# class TagViewSet(ModelViewSet):
-#     serializer_class = TagSerializer
-#     queryset = Tag.objects.all()
-#     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
-
-
-# class TopicViewSet(ModelViewSet):
-#     serializer_class = TopicSerializer
-#     queryset = Topic.objects.all()
-#     http_method_names = ['get']
-#     permission_classes = [IsAccountAdminOrReadOnly]
-
-
-# class PostViewSet(ModelViewSet):
-#     serializer_class = PostSerializer
-#     queryset = Post.objects.all()
-#     permission_classes = [ IsAuthenticatedOrReadOnly]
-
-    

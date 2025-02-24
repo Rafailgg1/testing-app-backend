@@ -7,74 +7,66 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выбор тестов</title>
-    <link rel="stylesheet" href="static/styless.css">
+    <link rel="stylesheet" href="{% static 'styless.css' %}">
 </head>
 <body>
-    <header class="header">
-        <div class="container_logo">
-    <div class="header__wrapper">
-        <a href="#" class="logo">
-            <img src="{% static 'main/img/logo.jpg' %}" alt="Logo" width="200" height="125">
-        </a>
-        <div class="business-area">
-            <h2>Всевозможные тесты</h2>
-            <p>Эти тесты ассоциативные, исход решается от выбранных ответов и ваших интересов</p>
-        </div>
+  
     
-    </div>
-</div>
-</header>
-<div class="intro">
-    <div class="sections-container">
-        <div class="section">
-            <img src="{% static 'main/img/people.jpeg' %}" alt="Картинка субкультур">
-            <h3>Люди</h3>
-            <p>К какой субкультуре вы бы относились  исходя из этого теста? В тесте будут затронуты (Стиляги. Хиппи, Рокеры, Панки, Ролевики, Геймеры и гики, Спортивные фанаты, Анимешники, Хипстеры, E-boys и e-girls, Альтушки)</p>
-            <a href="#">Пройти</a>
-        </div>
-
-        <div class="section">
-            <img src="{% static 'main/img/time.jpg' %}" alt="Время">
-            <h3>Время</h3>
-            <p>На сколько хорошо вы знаейте о времени? Этот тест поможет понять как хорошо вы знаете о времени, и как вы им распоряжайтесь.</p>
-            <a href="#">Пройти</a>
-        </div>
+    {% block content %} 
+    <div class="intro">
+        <div class="sections-container">
+            <div class="section">
+                <img src="{% static 'main/img/people.jpeg' %}" alt="Картинка субкультур">
+                <h3>Люди</h3>
+                <p>К какой субкультуре вы бы относились исходя из этого теста? В тесте будут затронуты (Стиляги, Хиппи, Рокеры, Панки, Ролевики, Геймеры и гики, Спортивные фанаты, Анимешники, Хипстеры, E-boys и e-girls, Альтушки)</p>
+                <a href="{% url 'test_people' %}">Пройти</a>
+            </div>
     
-        <div class="section">
-            <img src="{% static 'main/img/world.jpg' %}" alt="Мир">
-            <h3>Мир</h3>
-            <p>Куда мы движемся? о чём вы знаете чего не знают другие, в какую сторону движется наш мир? именно об этом вы узнаете в этом тесте.</p>
-            <a href="#">Пройти</a>
-    </div>
-</div>
-
-            <div class="sections-container">
-                <div class="section">
-                    <img src="{% static 'main/img/materia.jpg' %}" alt="материальное">
-                    <h3>Всё что материально</h3>
-                    <p>Вы когда-нибудь задумывались на сколько интересные вещи нас окружают? Речь в этом тесте пойдёт не только о материальных ценнастях но и о многом другом.</p>
-                    <a href="#">Пройти</a>
-                </div>
+            <div class="section">
+                <img src="{% static 'main/img/time.jpg' %}" alt="Время">
+                <h3>Время</h3>
+                <p>Насколько хорошо вы знаете о времени? Этот тест поможет понять, как хорошо вы знаете о времени и как вы им распоряжаетесь.</p>
+                <a href="{% url 'test_time' %}">Пройти</a>
+            </div>
         
-                <div class="section">
-                    <img src="{% static 'main/img/imagination.jpg' %}" alt="воображаймое">
-                    <h3>Всё что воображаймо</h3>
-                    <p>Теперь проверим ваш внутренний мир, о чём можно только мечтать, что приносит эмоции и приводит в чувства, не говорите нет тому чего нет.</p>
-                    <a href="#">Пройти</a>
-                </div>
-        
-                <div class="section">
-                    <img src="none" alt="Здесь может быть ваша картинка">
-                    <h3>Здесь может быть ваш тест</h3>
-                    <p>Здесь может быть ваше описание</p>
-                    <a href="#">Скоро можно пройти</a>
-                </div>
-        </div>
-            <video class="intro__video" autoplay muted loop>
-                <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
-            </video>
-            <div class="intro__content">
+            <div class="section">
+                <img src="{% static 'main/img/world.jpg' %}" alt="Мир">
+                <h3>Мир</h3>
+                <p>Куда мы движемся? О чём вы знаете, чего не знают другие? В какую сторону движется наш мир? Именно об этом вы узнаете в этом тесте.</p>
+                <a href="{% url 'test_world' %}">Пройти</a>
             </div>
         </div>
-   
-</body>
+    
+        <div class="sections-container">
+            <div class="section">
+                <img src="{% static 'main/img/materia.jpg' %}" alt="материальное">
+                <h3>Всё что материально</h3>
+                <p>Вы когда-нибудь задумывались, насколько интересные вещи нас окружают? Речь в этом тесте пойдёт не только о материальных ценностях, но и о многом другом.</p>
+                <a href="{% url 'test_material' %}">Пройти</a>
+            </div>
+        
+            <div class="section">
+                <img src="{% static 'main/img/imagination.jpg' %}" alt="воображаймое">
+                <h3>Всё что воображаймо</h3>
+                <p>Теперь проверим ваш внутренний мир. О чём можно только мечтать? Что приносит эмоции и приводит в чувства? Не говорите "нет" тому, чего нет.</p>
+                <a href="{% url 'test_imagination' %}">Пройти</a>
+            </div>
+        
+            <div class="section">
+                <img src="none" alt="Здесь может быть ваша картинка">
+                <h3>Здесь может быть ваш тест</h3>
+                <p>Здесь может быть ваше описание</p>
+                <a href="#">Скоро можно пройти</a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    
+                <video class="intro__video" autoplay muted loop>
+                    <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
+                </video>
+                <div class="intro__content">
+                </div>
+            </div>
+       
+    </body>

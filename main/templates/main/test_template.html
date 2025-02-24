@@ -15,11 +15,6 @@
         Ваш браузер не поддерживает видео.
     </video>
     <div class="border-frame">
-        {% comment %} <img src="{% static 'main/img/mat.png' %}" alt="Border Frame" class="border-image">
-        <div class="test-container">
-        </div>
-    </div> {% endcomment %}
-    
     <div class="test-container">
         {% if test.image %}
         <img src="{{ test.image.url }}" alt="Test Image" class="test-image">

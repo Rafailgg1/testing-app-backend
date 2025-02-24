@@ -17,39 +17,39 @@
     <header class="header">
         <div class="container">
             <div class="header__wrapper">
-                <a href="#" class="logo">
+                <a href="{% url 'home' %}" class="logo">
                     <img src="{% static 'main/img/logo.jpg' %}" alt="Logo" width="200" height="125">
                 </a>
 
                 <nav class="nav">
-                    <a href="{% url 'home' %}" class="nav__link">
+                    <a href="{% url 'info' %}" class="nav__link">
                         <i class="fa-solid fa-house-chimney-user"></i>Главная
                     </a>
                     <div class="dropdown">
-                        <a href="{% url 'test_home' %}" class="nav__link">
+                        <a href="{% url 'themes' %}" class="nav__link">
                             <i class="fa-solid fa-bars-staggered"></i>Темы
                         </a>
                         <div class="dropdown-content">
-                            <a href="{% url 'theme1' %}">Тема 1 "В каком 10-и летии вам суждено быть"</a>
-                            <a href="{% url 'theme2' %}">Тема 2 "Ваш взгляд на грядущие перемены в мире"</a>
-                            <a href="{% url 'theme3' %}">Тема 3  "Кем бы вы хотели себя видеть"</a>
+                            <a href="{% url 'start_test' test_id=3 %}">Тема 1 "В каком 10-и летии вам суждено быть"</a>
+                            <a href="{% url 'start_test' test_id=5 %}">Тема 2 "Ваш взгляд на грядущие перемены в мире"</a>
+                            <a href="{% url 'start_test' test_id=7 %}">Тема 3  "Кем бы вы хотели себя видеть"</a>
                         </div>
                     </div>
 
                     <div class="dropdown">
-                        <a href="#" class="nav__link">
+                        <a href="{% url 'section' %}" class="nav__link"> 
                             <i class="fa-solid fa-book-open-reader"></i>Тесты
                         </a>
                         <div class="dropdown-content">
-                            <a href="{% url 'test1' %}">Тест 1-ой категории "Люди"</a>
-                            <a href="{% url 'test2' %}">Тест 2-ой категории "Время"</a>
-                            <a href="{% url 'test3' %}">Тест 3-ей категории "Мир"</a>
-                            <a href="#">Тест 4-ой категории "Всё что материально"</a>
-                            <a href="#">Тест 5-ой категории "Всё что воображаймо"</a>
+                            <a href="{% url 'start_test' test_id=3 %}">Тест 1-ой категории "Люди"</a>
+                            <a href="{% url 'start_test' test_id=4 %}">Тест 2-ой категории "Время"</a>
+                            <a href="{% url 'start_test' test_id=5 %}">Тест 3-ей категории "Мир"</a>
+                            <a href="{% url 'start_test' test_id=6 %}">Тест 4-ой категории "Всё что материально"</a>
+                            <a href="{% url 'start_test' test_id=7 %}">Тест 5-ой категории "Всё что воображаймо"</a>
                         </div>
                     </div>
 
-                    <a href="#" class="nav__link">
+                    <a href="{% url 'chat' %}" class="nav__link">
                         <i class="fa-regular fa-message"></i>Чат
                     </a>
 
@@ -63,6 +63,9 @@
             Текущий URL: <span id="url-display"></span>
         </div>
     </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 
     <div class="intro">
         <video class="intro__video" autoplay muted loop>
@@ -76,432 +79,3 @@
     <script src="{% static 'main/static/index.js' %}"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css"> 
-    <link rel="stylesheet" href="static/main/styles.css"> 
-</head>
- <body>
-
-    <header class="header">
-        <div class ="container">
-            <div class="header__wrapper">
-                <a href="#" class="logo">
-                    <img src ="https://dummyimage.com/200x125/999999/383638.gif&text=Tecт" alt="">
-                </a> {% endcomment %}
-                {% comment %} <a img id="logo" src="{% static 'main/img/logo.jpg/' %}"alt="Website Logo" />
-                   {% comment %} <img src="{% static 'main/img/logo.jpg' %}" alt="logo">
-                    <span class="logo"Test></span>  {% endcomment %}
-                {% comment %} </a> {% endcomment %} 
-
-                {% comment %} <nav class="nav">
-                        <a href="#" class="nav__link">Главная</a>
-                        <a href="#" class="nav__link">Тема</a>
-                        <a href="#" class="nav__link">Тест</a>
-                        <a href="#" class="nav__link">Чат</a>
-                        <a href="#" class="nav__link">Добавить Тест</a> 
-                </nav>   
-            </div>
-        </div>
-    </header>
-    
-     <div class="intro">
-      <div class="intro__content">
-       <div class="container">
-        <div class="intro__title">        
-            Пройдите своё виденье в всевозможных  Тестах
-        </div>
-       <div class = "intro__text">
-                    Простой Тест
-       </div>
-      </div>
-     </div>
-     <video class="intro__video" autoplay muted loop>
-        <source src="static/main/img/video-bg.mp4">
-     </video>
-    </div>
-
- </body>
-</html>
-    
- {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-{% comment %} 
-{% load static %}
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Тест навигации с видео</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- FontAwesome -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
-
-        *, *::before, *:after {
-            box-sizing: border-box;
-        }
-
-         body {
-             margin: 0;
-             font-family: 'Oswald', sans-serif;
-         }
-         .header {
-             background-color: rgba(51, 51, 51, 0.7);
-             padding: 10px 0;
-             position: relative;
-             z-index: 1000;
-         }
-         .container {
-             max-width: 1200px;
-             margin: 0 auto;
-             padding: 0 15px;
-         }
-         .header__wrapper {
-             display: flex;
-             align-items: center;
-             justify-content: space-between;
-         }
-         .nav {
-             display: flex;
-         }
-         .nav__link {
-             margin-right: 20px;
-             font-size: 18px;
-             color: #ffffff; 
-             text-decoration: none;
-         }
-         .nav__link:hover {
-             color: #999;
-         }
-
-        .nav__link i {
-            margin-right: 8px; /* Отступ между иконкой и текстом */
-        }
-
-        /* Стили для видео */
-        .intro {
-             position: relative;
-             height: 100vh; 
-             overflow: hidden;
-         }
-
-         .intro:after{
-            width: 100%;
-            height: 100%;
-            content: '';
-        
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, .4);
-            z-index: 1;
-        }
- 
-         .intro__video {
-             position: absolute;
-             top: 0;
-             left: 0;
-             width: 100%;
-             height: 100%;
-             object-fit: cover; 
-             z-index: -1; 
-         }
- 
-         .intro__content {
-             position: relative;
-             z-index: 1; 
-             color: #ffffff; 
-             text-align: center;
-             padding-top: 20%;
-         }
-         .intro__title {
-            margin-bottom: 20px;
-        
-            font-size: 60px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-        
-        .intro__text {
-            font-size: 18px;
-            color: #ffffff;
-            min-width: 500px;
-        }
-    </style>
-</head>
-<body>
-
-    <header class="header">
-        <div class="container">
-            <div class="header__wrapper">
-                <a href="#" class="logo">
-                    <img src="{% static 'main/img/logo.jpg' %}" alt="Logo" width="200" height="125">
-                </a>
-
-                <nav class="nav">
-                    <a href="{% url 'home' %}" class="nav__link">
-                        <i class="fa-solid fa-house-chimney-user"></i>Главная
-                    </a>
-                    <a href="{% url 'about' %}" class="nav__link">
-                        <i class="fa-solid fa-bars-staggered"></i>Тема
-                    </a>
-                    <a href="{% url 'test_home' %}" class="nav__link">
-                        <i class="fa-solid fa-book-open-reader"></i>Тест
-                    </a>
-                    <a href="#" class="nav__link">
-                        <i class="fa-regular fa-message"></i>Чат
-                    </a>
-                    <a href="{% url 'create' %}" class="nav__link">
-                        <i class="fas fa-plus-circle"></i>Добавить Тест
-                    </a>
-                    
-                </nav>   
-            </div>
-        </div>
-    </header>
-
-    <div class="intro">
-        <video class="intro__video" autoplay muted loop>
-            <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-        <div class="intro__content">
-            <h1>Пройдите своё виденье в всевозможных Тестах</h1>
-            <p>Простой Тест</p>
-        </div>
-    </div>
-
-</body>
-</html>  {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-    <link rel="stylesheet" href="{% static 'main/style.css' %}">
-</head>
-<body>
-    <aside>
-        <img src="{% static 'main/img/logo.jpg' %}" alt="logo">
-        <span class="logo"Test></span>
-        <ul> 
-            <h3>Возможности</h3>
-            <a href="{% url 'home' %}"><li><i class="fa-solid fa-house-chimney-user"></i>Главная</li></a>
-            <a href="{% url 'about' %}"><li><i class="fa-solid fa-bars-staggered"></i>Тема</li></a>
-            {% comment %} <a href="{% url 'test_home' %}"><li><i class="fa-solid fa-book-open-reader"></i></i>Тест</li></a> {% endcomment %}
-            {% comment %} <a href=><li><i class="fa-regular fa-message"></i>Чат</li></a> {% endcomment %}
-            {% comment %} <a href="{% url 'create' %}"><li><button class="btn btn-info"><i class="fas fa-plus-circle"></i>Добавить Тест</li></a> {% endcomment %}
-        {% comment %} </ul> {% endcomment %}
-        {% comment %} <div class="container">
-        </div> {% endcomment %}
-    {% comment %} </aside>
-    <main>
-        {% block content %}
-        {% endblock %}
-    
-    <div class="video-bg">
-        <video src="video-bg.mp4" type="video/mp4" autoplay muted loop></video>
-        <div class="effects"></div>
-        <div class="video-bg__content">
-        </div>
-     </div>
-     </main>
-    </body>
-    </html> {% endcomment %} 
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {% comment %} <form action="{% url 'create-todo' %}" method="post">
-        {% csrf_token %}
-        <label for="message-text">Название:</label>
-        <input type="text" name="text" id="message-text">
-        <label for="message-description">Описание:</label>
-        <textarea
-            name='description' id='message-description'
-        ></textarea>
-        <button type="submit">Отправить</button>
-      </form>
-    <ul>
-      {%for todo in todos%}
-      <li class="'todo-list-item">
-        <div data-id='{{todo.pk}}' 
-             class="todo {% if todo.completed %}todo_completed{% endif %}"> 
-          <div class="todo-data">         
-          <p>{{todo.title}}</p>
-           <p>{{todo.description}}</p>
-        </div>
-        <div class="todo-buttons">
-          <form 
-          method="POST" 
-          class="delete-todo-form"
-          >
-            {% csrf_token %}
-            <button type="submit">Удалить</button>
-          </form>
-          <form method="POST" action="{% url 'change-todo-view' todo.pk %}">
-            {% csrf_token %}
-           
-         
-            <button type="submit">
-              {% if todo.completed %}
-              Выполнено
-              {% else %}
-              Невыполнено
-              {% endif %}
-              </button>
-      </li>
-    </ul>
-    <script src="{% static 'index.js' %}"></script> {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" 
-    content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-    <link rel="stylesheet" href="{% static 'main_site/style.css' %}">
-</head>
-<body>
-    <aside>
-        <img src="{% static 'main_site/img/logo.jpg' %}" alt="logo">
-        <span class="logo"Quiz></span>
-        <h3>Возможности</h3>
-        <ul>
-            <a href="{% url 'home' %}"><li><i class="fa-solid fa-house-chimney-user"></i>Главная</li></a>
-            <a href="{% url 'about' %}"><li><i class="fa-solid fa-bars-staggered"></i>Тема</li></a>
-            <a href="{% url 'news_home' %}"><li><i class="fa-solid fa-book-open-reader"></i></i>Тест</li></a>
-            <a href=><li><i class="fa-regular fa-message"></i>Чат</li></a>
-            <a href="{% url 'create' %}"><li><button class="btn btn-info"><i class="fas fa-plus-circle"></i>Добавить Тест</li></a>
-        </ul>
-    </aside>
-    <div class="container">
-    </div>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-</body>
-</html> {% endcomment %}
