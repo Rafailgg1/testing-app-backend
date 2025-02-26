@@ -9,11 +9,12 @@
     <title>Выбор тестов</title>
     <link rel="stylesheet" href="{% static 'styless.css' %}">
 </head>
-<body>
-  
-    
-    {% block content %} 
+<body> 
     <div class="intro">
+        <video class="intro__video" autoplay muted loop>
+            <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
+        </video>
+            {% block content %} 
         <div class="sections-container">
             <div class="section">
                 <img src="{% static 'main/img/people.jpeg' %}" alt="Картинка субкультур">
@@ -59,14 +60,8 @@
                 <a href="#">Скоро можно пройти</a>
             </div>
         </div>
-    </div>
     {% endblock %}
-    
-                <video class="intro__video" autoplay muted loop>
-                    <source src="{% static 'main/img/video-bg.mp4' %}" type="video/mp4">
-                </video>
-                <div class="intro__content">
-                </div>
-            </div>
-       
+    <div class="intro__content">
+<div>
     </body>
+    </html>
